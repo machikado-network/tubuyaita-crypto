@@ -1,0 +1,18 @@
+[package]
+name = "tubuyaita_crypto"
+version = "0.1.0"
+authors = []
+edition = "2021"
+
+[lib]
+name = "tubuyaita_crypto"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+rustler = "0.25.0"
+rust-crypto = "0.2.36"
+hex = "0.4.3"
+sha2 = "0.10"
+cryptoxide = "0.4.2"
+ed25519-dalek = "1.0.1"
