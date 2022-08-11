@@ -1,5 +1,5 @@
 use sha2::Digest;
-use ed25519_dalek::{self as ed25519, ExpandedSecretKey};
+use ed25519_dalek::{self as ed25519};
 use ed25519_dalek::Verifier;
 
 #[rustler::nif]
