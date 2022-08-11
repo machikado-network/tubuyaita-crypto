@@ -17,4 +17,4 @@ fn hash(message: String) -> String {
     hex::encode(hasher.finalize())
 }
 
-rustler::init!("Elixir.Tubuyaita.Crypto", [verify]);
+rustler::init!("Elixir.Tubuyaita.Crypto", [verify, hash]);
