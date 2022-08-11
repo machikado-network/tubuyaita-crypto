@@ -10,4 +10,11 @@ fn verify(message: String, public_key: String, sign: String) -> bool {
     public_key.verify(&hasher.finalize(), &signature).is_ok()
 }
 
+#[rustler::nif]
+fn hash(message: String) -> String {
+    let mut hasher = Sha512::new();
+    hasher.update(message.as_bytes());
+    hex::encode(hasher.finalize())
+}
+
 rustler::init!("Elixir.Tubuyaita.Crypto", [verify]);
