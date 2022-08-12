@@ -1,5 +1,6 @@
-use ed25519_dalek::{self as ed25519, Sha512, Digest};
+use ed25519_dalek::{self as ed25519, Sha512, Digest, Keypair};
 use ed25519_dalek::Verifier;
+use rand::rngs::OsRng;
 
 #[rustler::nif]
 fn verify(message: String, public_key: String, sign: String) -> bool {
@@ -17,4 +18,15 @@ fn hash(message: String) -> String {
     hex::encode(hasher.finalize())
 }
 
-rustler::init!("Elixir.Tubuyaita.Crypto", [verify, hash]);
+#[rustler::nif]
+fn generate_keypair() -> (String, String) {
+    let mut csprng = OsRng{};
+    let keypair: Keypair = Keypair::generate(&mut csprng);
+    (String::from_utf8_lossy(keypair.secret.as_bytes()).to_string(), String::from_utf8_lossy(keypair.public.as_bytes()).to_string())
+}
+
+// fn sign(message: String, secret_key: rustler::Binary) -> rustler::Binary {
+//
+// }
+
+rustler::init!("Elixir.Tubuyaita.Crypto", [verify, hash, generate_keypair]);
