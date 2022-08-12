@@ -24,3 +24,5 @@ tubuyaita_crypto_test-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+priv/native/
