@@ -5,9 +5,15 @@ defmodule Tubuyaita.Crypto do
       crate: :tubuyaita_crypto,
       path: "../"
 
+  @doc """
+    Tubyuaita.Message.Message用の、hexでencodeされたものをverifyする関数
+  """
   @spec verify_message(String.t(), String.t(), String.t()) :: Bool.t()
   def verify_message(_message, _public_key, _sign), do: :erlang.nif_error(:nif_not_loaded)
 
+  @doc """
+  verify binary message with public key and sign
+  """
   @spec verify(String.t(), String.t(), String.t()) :: Bool.t()
   def verify(_message, _public_key, _sign), do: :erlang.nif_error(:nif_not_loaded)
 
