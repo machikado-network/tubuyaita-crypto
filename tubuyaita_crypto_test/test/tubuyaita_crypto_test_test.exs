@@ -8,7 +8,7 @@ defmodule TubuyaitaCryptoTest do
 
   test "generate keypair" do
     {secret, public} = Tubuyaita.Crypto.generate_keypair()
-    IO.inspect secret
-    IO.inspect public
+    assert String.length(secret) == 32
+    assert String.length(public) == 32
   end
 end

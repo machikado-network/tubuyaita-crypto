@@ -17,4 +17,6 @@ defmodule Tubuyaita.Crypto do
   @spec generate_keypair() :: {String.t(), String.t()}
   def generate_keypair(), do: :erlang.nif_error(:nif_not_loaded)
 
+  def sign(_message, _secret_key), do: :erlang.nif_error(:nif_not_loaded)
+
 end
