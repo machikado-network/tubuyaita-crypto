@@ -5,6 +5,9 @@ defmodule Tubuyaita.Crypto do
       crate: :tubuyaita_crypto,
       path: "../"
 
+  @spec verify_message(String.t(), String.t(), String.t()) :: Bool.t()
+  def verify_message(_message, _public_key, _sign), do: :erlang.nif_error(:nif_not_loaded)
+
   @spec verify(String.t(), String.t(), String.t()) :: Bool.t()
   def verify(_message, _public_key, _sign), do: :erlang.nif_error(:nif_not_loaded)
 
@@ -17,6 +20,7 @@ defmodule Tubuyaita.Crypto do
   @spec generate_keypair() :: {String.t(), String.t()}
   def generate_keypair(), do: :erlang.nif_error(:nif_not_loaded)
 
-  def sign(_message, _secret_key), do: :erlang.nif_error(:nif_not_loaded)
+  @spec sign(String.t(), String.t(), String.t()) :: String.t()
+  def sign(_message, _secret_key, _public_key), do: :erlang.nif_error(:nif_not_loaded)
 
 end
