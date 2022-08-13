@@ -1,0 +1,51 @@
+name: CI for Backend
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - tubuyaita_crypto_test
+      - .github/workflows/test_crypto.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - tubuyaita_crypto_test
+      - .github/workflows/test_crypto.yml
+
+jobs:
+  elixir-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Sets up an Erlang/OTP environment
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: 1.13.4
+          otp-version: 25
+
+      - name: Restore Cache
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            tubuyaita_crypto_test/deps
+            tubuyaita_crypto_test/_build
+          key: ${{ runner.os }}-25-1.13.4-${{ hashFiles('tubuyaita_crypto_test/mix.lock') }}
+
+      - name: Install dependencies
+        working-directory: tubuyaita_crypto_test
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+          mix deps.compile
+          mix compile
+
+      - run: mix test --trace --slowest 10
+        working-directory: tubuyaita_crypto_test
+
+      - run: mix dialyzer
+        working-directory: tubuyaita_crypto_test
