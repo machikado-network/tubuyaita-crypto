@@ -29,7 +29,7 @@ defmodule Tubuyaita.Crypto do
   @spec generate_keypair() :: {binary(), binary()}
   def generate_keypair(), do: :erlang.nif_error(:nif_not_loaded)
 
-  @spec sign(String.t(), binary(), binary()) :: binary()
+  @spec sign(binary(), binary(), binary()) :: binary()
   def sign(_message, _secret_key, _public_key), do: :erlang.nif_error(:nif_not_loaded)
 
   @spec from_hex(String.t()) :: binary()

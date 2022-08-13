@@ -33,4 +33,9 @@ defmodule TubuyaitaCryptoTest do
   test "convert hex to string" do
     assert Tubuyaita.Crypto.from_hex("010203") == <<1, 2, 3>>
   end
+
+  test "hash and sign" do
+    {s, p} = Tubuyaita.Crypto.generate_keypair()
+    Tubuyaita.Crypto.sign(Tubuyaita.Crypto.hash("abc"), s, p)
+  end
 end

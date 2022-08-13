@@ -50,14 +50,14 @@ fn generate_keypair(env: Env<'_>) -> (Binary<'_>, Binary<'_>) {
 #[rustler::nif]
 fn sign<'a>(
     env: Env<'a>,
-    message: String,
+    message: Binary<'a>,
     secret_key: Binary<'a>,
     public_key: Binary<'a>,
 ) -> Binary<'a> {
     let mut secret = secret_key.to_vec();
     secret.append(&mut public_key.to_vec());
     let keypair = Keypair::from_bytes(secret.as_slice()).expect("Failed to create keypair");
-    let signature = keypair.sign(message.as_bytes());
+    let signature = keypair.sign(message.as_slice());
     let mut bin = OwnedBinary::new(64).unwrap();
     bin.as_mut_slice().copy_from_slice(signature.as_ref());
     Binary::from_owned(bin, env)
