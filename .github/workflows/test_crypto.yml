@@ -6,12 +6,20 @@ on:
     paths:
       - tubuyaita_crypto_test
       - .github/workflows/test_crypto.yml
+      - src
+      - Cargo.toml
+      - Cargo.lock
+      - .cargo/config
   pull_request:
     branches:
       - main
     paths:
       - tubuyaita_crypto_test
       - .github/workflows/test_crypto.yml
+      - src
+      - Cargo.toml
+      - Cargo.lock
+      - .cargo/config
 
 jobs:
   elixir-ci:
