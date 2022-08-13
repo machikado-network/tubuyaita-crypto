@@ -1,5 +1,5 @@
 use ed25519_dalek::Verifier;
-use ed25519_dalek::{self as ed25519, Digest, Keypair, PublicKey, Sha512, Signature, Signer};
+use ed25519_dalek::{Digest, Keypair, PublicKey, Sha512, Signature, Signer};
 use rand::rngs::OsRng;
 use rustler::{Binary, Env, OwnedBinary};
 

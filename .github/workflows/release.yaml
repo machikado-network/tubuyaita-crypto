@@ -4,13 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - src/*
-      - Cargo.toml
-      - Cargo.lock
-      - Cross.toml
-      - .github/workflows/release.yml
-      - .cargo/config
+    paths-ignore:
+      - tubuyaita_crypto_test
     tags:
       - "*"
 
