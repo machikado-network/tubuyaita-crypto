@@ -6,6 +6,26 @@ defmodule TubuyaitaCryptoTest do
     assert TubuyaitaCrypto.hello() == :world
   end
 
+  test "verify" do
+    {secret, public} = Tubuyaita.Crypto.generate_keypair()
+    {:ok, r} = Tubuyaita.Crypto.sign("abc", secret, public)
+    assert Tubuyaita.Crypto.verify("abc", public, r)
+  end
+
+  test "verify fail" do
+    {secret, public} = Tubuyaita.Crypto.generate_keypair()
+    {:ok, r} = Tubuyaita.Crypto.sign("abc", secret, public)
+
+    # invalid message
+    assert Tubuyaita.Crypto.verify("abcde", public, r) == false
+
+    # invalid signature
+    assert Tubuyaita.Crypto.verify("abcde", public, <<1, 2, 3>>) == false
+
+    # invalid public key
+    assert Tubuyaita.Crypto.verify("abcde", <<1, 2, 3>>, r) == false
+  end
+
   test "hash test" do
     assert Tubuyaita.Crypto.hash("abc") ==
        <<221, 175, 53, 161, 147, 97, 122, 186, 204, 65, 115, 73, 174, 32, 65, 49, 18,
@@ -22,8 +42,12 @@ defmodule TubuyaitaCryptoTest do
 
   test "sign" do
     {secret, public} = Tubuyaita.Crypto.generate_keypair()
-    r = Tubuyaita.Crypto.sign("abc", secret, public)
+    {:ok, r} = Tubuyaita.Crypto.sign("abc", secret, public)
     assert Tubuyaita.Crypto.verify("abc", public, r)
+  end
+
+  test "sign fail" do
+    {:error, :invalid_keypair} = Tubuyaita.Crypto.sign("abc", "", "")
   end
 
   test "convert string to hex" do
@@ -31,7 +55,11 @@ defmodule TubuyaitaCryptoTest do
   end
 
   test "convert hex to string" do
-    assert Tubuyaita.Crypto.from_hex("010203") == <<1, 2, 3>>
+    assert Tubuyaita.Crypto.from_hex("010203") == {:ok, <<1, 2, 3>>}
+  end
+
+  test "convert hex fail" do
+    assert Tubuyaita.Crypto.from_hex("010203PP") == {:error, :invalid_hex_string}
   end
 
   test "hash and sign" do
