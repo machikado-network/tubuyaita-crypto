@@ -29,11 +29,14 @@ defmodule Tubuyaita.Crypto do
   @spec generate_keypair() :: {binary(), binary()}
   def generate_keypair(), do: :erlang.nif_error(:nif_not_loaded)
 
-  @spec sign(binary(), binary(), binary()) :: binary()
+  @spec sign(binary(), binary(), binary()) :: {:ok, binary()} | {:error, keyword()}
   def sign(_message, _secret_key, _public_key), do: :erlang.nif_error(:nif_not_loaded)
 
-  @spec from_hex(String.t()) :: binary()
+  @spec from_hex(String.t()) :: {:ok, binary()} | {:error, keyword()}
   def from_hex(_message), do: :erlang.nif_error(:nif_not_loaded)
+
+  @spec try_from_hex(String.t()) :: binary()
+  def try_from_hex(_message), do: :erlang.nif_error(:nif_not_loaded)
 
   @spec to_hex(binary()) :: String.t()
   def to_hex(_binary), do: :erlang.nif_error(:nif_not_loaded)
